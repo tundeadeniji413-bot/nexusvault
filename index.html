@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusVault | Institutional-Grade Crypto Wealth Management</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome CDN for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              obsidian: '#070b14',
+              surface: '#0d1527',
+              card: '#131e36',
+              border: '#1f2e4d',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              purple: '#8b5cf6',
+              rose: '#f43f5e'
+            }
+          },
+          animation: {
+            'marquee': 'marquee 30s linear infinite',
+            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+            'float': 'float 5s ease-in-out infinite'
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' }
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+              '50%': { opacity: '0.6', transform: 'scale(1.08)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070b14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2e4d;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06b6d4;
+    }
+
+    /* Glassmorphism styling */
+    .glass-surface {
+      background: rgba(13, 21, 39, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(19, 30, 54, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(6, 182, 212, 0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 34px -8px rgba(6, 182, 212, 0.18);
+    }
+
+    /* Custom range input */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #1f2e4d;
+      height: 6px;
+      border-radius: 9999px;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #06b6d4;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(6, 182, 212, 0.7);
+      transition: transform 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.18);
+    }
+
+    /* Pause marquee when hovered */
+    .ticker-wrapper:hover .ticker-strip {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+
+<body class="bg-[#070b14] text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-cyan-500 selection:text-black">
+
+  <!-- Ambient Glow Effects -->
+  <div class="fixed top-0 left-1/4 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-soft"></div>
+  <div class="fixed top-1/2 right-10 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+  <div class="fixed bottom-10 left-10 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+
+  <header class="sticky top-0 z-40 glass-surface border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-[#070b14] rounded-[10px] flex items-center justify-center">
+            <i class="fa-solid fa-cube text-cyan-400 text-lg"></i>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1">
+            Nexus<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Vault</span>
+          </span>
+          <span class="text-[10px] text-slate-400 tracking-wider font-mono uppercase -mt-0.5">Asset Management</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#markets" class="hover:text-cyan-400 transition-colors">Live Markets</a>
+        <a href="#calculator" class="hover:text-cyan-400 transition-colors">Yield Calculator</a>
+        <a href="#strategies" class="hover:text-cyan-400 transition-colors">Portfolios</a>
+        <a href="#security" class="hover:text-cyan-400 transition-colors">Custody & Safety</a>
+        <a href="#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
+      </nav>
+
+      <!-- Auth Action Buttons -->
+      <div class="hidden sm:flex items-center gap-3">
+        <button onclick="openAuthModal('signin')" class="text-sm font-semibold text-slate-300 hover:text-white px-4 py-2 rounded-xl transition-colors">
+          Sign In
+        </button>
+        <button onclick="openAuthModal('signup')" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold rounded-xl group bg-gradient-to-r from-cyan-400 to-emerald-400 hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-cyan-500/20">
+          <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-[#070b14] text-white rounded-[10px] group-hover:bg-opacity-0">
+            Open Free Vault <i class="fa-solid fa-arrow-right ml-1.5 text-xs text-cyan-400 group-hover:text-white"></i>
+          </span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" aria-label="Toggle mobile menu" class="md:hidden text-slate-300 hover:text-white p-2.5 rounded-lg bg-slate-800/60 focus:outline-none">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer" class="hidden md:hidden glass-surface border-b border-slate-800 px-6 py-6 transition-all">
+      <div class="flex flex-col gap-4 text-sm font-medium">
+        <a href="#markets" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-cyan-400 py-1">Live Markets</a>
+        <a href="#calculator" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-cyan-400 py-1">Yield Calculator</a>
+        <a href="#strategies" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-cyan-400 py-1">Portfolios</a>
+        <a href="#security" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-cyan-400 py-1">Custody & Safety</a>
+        <a href="#faq" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-cyan-400 py-1">FAQ</a>
+        <div class="pt-4 border-t border-slate-800 flex flex-col gap-2.5">
+          <button onclick="openAuthModal('signin'); toggleMobileMenu()" class="w-full py-2.5 rounded-xl border border-slate-700 text-sm font-semibold text-white">Sign In</button>
+          <button onclick="openAuthModal('signup'); toggleMobileMenu()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-sm">Open Free Vault</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Marquee Crypto Ticker -->
+  <div class="border-y border-slate-800/80 bg-[#0a101f]/90 py-2.5 overflow-hidden select-none ticker-wrapper">
+    <div id="tickerStrip" class="ticker-strip flex gap-8 whitespace-nowrap animate-marquee">
+      <!-- Injected via JavaScript for live blinking tickers -->
+    </div>
+  </div>
+
+  <section class="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-800/60 text-cyan-300 text-xs font-semibold mb-6">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>Nexus V4 Engine Active: Insured Yields Up To 24.8% APY</span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-cyan-400"></i>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12] mb-6">
+            Intelligent Crypto Wealth. <br class="hidden sm:inline">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
+              Institutional Security.
+            </span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300/90 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+            NexusVault automates algorithmic diversification, liquid staking, and cold-storage custody. Earn passive, compound yield with verified multi-sig protection and zero lockup penalties.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+            <button onclick="openAuthModal('signup')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-base shadow-xl shadow-cyan-500/25 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-shield-halved"></i> Create Free Account
+            </button>
+            <a href="#calculator" class="w-full sm:w-auto px-7 py-4 rounded-xl glass-card text-slate-200 hover:text-white font-semibold text-base transition-all flex items-center justify-center gap-2 border border-slate-700/80">
+              <i class="fa-solid fa-calculator text-cyan-400"></i> Calculate Yield
+            </a>
+          </div>
+
+          <!-- Trust Badges Under Hero -->
+          <div class="pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold font-mono text-white">$2.45B+</p>
+              <p class="text-xs text-slate-400 uppercase tracking-wide">Assets Managed</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-400">99.99%</p>
+              <p class="text-xs text-slate-400 uppercase tracking-wide">Custody Uptime</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold font-mono text-cyan-400">$350M</p>
+              <p class="text-xs text-slate-400 uppercase tracking-wide">Crime Insurance</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Interactive Dashboard Card -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            
+            <div class="glass-surface rounded-2xl p-6 sm:p-7 shadow-2xl border border-slate-700/70 relative z-10">
+              
+              <!-- Header -->
+              <div class="flex items-center justify-between pb-5 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30">
+                    <i class="fa-solid fa-chart-pie"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-white text-sm">Automated Vault #714</h3>
+                    <span class="text-xs text-slate-400">Algorithmic Index Rebalancer</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-semibold flex items-center gap-1">
+                  <i class="fa-solid fa-arrow-trend-up text-[10px]"></i> +32.8% YTD
+                </span>
+              </div>
+
+              <!-- Balance Values -->
+              <div class="py-5">
+                <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Vault Valuation</div>
+                <div class="flex items-baseline gap-3">
+                  <span class="text-3xl sm:text-4xl font-extrabold font-mono text-white">$184,920.45</span>
+                  <span class="text-xs font-mono text-emerald-400 font-medium">+$2,410.15 (24h)</span>
+                </div>
+              </div>
+
+              <!-- Live Interactive Canvas Chart -->
+              <div class="relative w-full h-32 mb-4 bg-slate-900/60 rounded-xl p-2 border border-slate-800">
+                <canvas id="heroCanvasChart" class="w-full h-full block"></canvas>
+              </div>
+
+              <!-- Vault Allocation Split -->
+              <div class="space-y-3 pt-2 text-xs">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                    <span class="text-slate-300 font-medium">Ethereum Liquid Staking</span>
+                  </div>
+                  <span class="font-mono text-slate-300">45% ($83,214)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-slate-300 font-medium">Bitcoin Cold Reserve</span>
+                  </div>
+                  <span class="font-mono text-slate-300">35% ($64,722)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+                    <span class="text-slate-300 font-medium">Solana & High-DeFi Alpha</span>
+                  </div>
+                  <span class="font-mono text-slate-300">20% ($36,984)</span>
+                </div>
+              </div>
+
+              <!-- Rebalance Action -->
+              <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2 text-xs text-slate-400">
+                  <i class="fa-solid fa-lock text-emerald-400"></i>
+                  <span>MPC Cold Storage Protected</span>
+                </div>
+                <button onclick="triggerQuickRebalance(this)" class="px-3.5 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition-all flex items-center gap-1.5">
+                  <i class="fa-solid fa-rotate text-[10px]"></i> Auto-Rebalance
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Floating Accent Pill -->
+            <div class="hidden sm:flex absolute -bottom-5 -left-5 glass-surface rounded-xl p-3 items-center gap-3 border border-emerald-500/30 shadow-xl z-20 animate-float">
+              <div class="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div>
+                <p class="text-[11px] text-slate-400 leading-none mb-1">Staking Reward Paid</p>
+                <p class="text-sm font-mono font-bold text-emerald-400">+$124.80 (Auto-compounded)</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="markets" class="py-16 md:py-24 bg-[#0a1122]/80 border-t border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest font-mono">Live Institutional Liquidity</span>
+          <h2 class="text-3xl font-extrabold text-white tracking-tight mt-1">Real-Time Cryptocurrency Markets</h2>
+        </div>
+
+        <div class="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 self-start md:self-auto">
+          <button onclick="filterMarkets('all', this)" class="market-btn px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+            All Assets
+          </button>
+          <button onclick="filterMarkets('yield', this)" class="market-btn px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white">
+            Top Yielding
+          </button>
+          <button onclick="filterMarkets('bluechip', this)" class="market-btn px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white">
+            Bluechips
+          </button>
+        </div>
+      </div>
+
+      <div class="glass-surface rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-[11px] font-mono uppercase text-slate-400 tracking-wider bg-slate-900/60">
+                <th class="py-4 px-6">Asset</th>
+                <th class="py-4 px-6">Live Price</th>
+                <th class="py-4 px-6">24h Change</th>
+                <th class="py-4 px-6 hidden sm:table-cell">24h Volume</th>
+                <th class="py-4 px-6 hidden md:table-cell">Vault Staking APY</th>
+                <th class="py-4 px-6 text-right">Quick Allocation</th>
+              </tr>
+            </thead>
+            <tbody id="marketTableBody" class="divide-y divide-slate-800/60 text-sm">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="text-center text-xs text-slate-500 mt-4 font-mono flex items-center justify-center gap-2">
+        <i class="fa-solid fa-circle-dot text-emerald-400 text-[8px] animate-pulse"></i>
+        Instant execution pricing streamed from aggregate institutional liquidity nodes.
+      </p>
+
+    </div>
+  </section>
+
+  <section id="calculator" class="py-16 md:py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest font-mono">Dynamic Yield Simulator</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">Compound Growth Calculator</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">
+          Calculate potential returns powered by automated continuous rebalancing and verified staking protocols.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-7 glass-surface rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-slate-800">
+          <div>
+            
+            <!-- Slider 1: Deposit -->
+            <div class="mb-8">
+              <div class="flex justify-between items-center mb-3">
+                <label for="depositRange" class="text-sm font-semibold text-slate-300">Initial Allocation</label>
+                <div class="font-mono text-cyan-400 font-bold text-xl sm:text-2xl px-3 py-1 bg-cyan-950/40 rounded-lg border border-cyan-800/40" id="depositLabel">$15,000</div>
+              </div>
+              <input type="range" id="depositRange" min="500" max="100000" step="500" value="15000" class="w-full">
+              <div class="flex justify-between text-[11px] font-mono text-slate-500 mt-2">
+                <span>$500</span>
+                <span>$25,000</span>
+                <span>$50,000</span>
+                <span>$100,000</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: Duration -->
+            <div class="mb-8">
+              <div class="flex justify-between items-center mb-3">
+                <label for="durationRange" class="text-sm font-semibold text-slate-300">Investment Horizon</label>
+                <div class="font-mono text-emerald-400 font-bold text-xl sm:text-2xl px-3 py-1 bg-emerald-950/40 rounded-lg border border-emerald-800/40" id="durationLabel">3 Years</div>
+              </div>
+              <input type="range" id="durationRange" min="1" max="5" step="1" value="3" class="w-full">
+              <div class="flex justify-between text-[11px] font-mono text-slate-500 mt-2">
+                <span>1 Year</span>
+                <span>2 Years</span>
+                <span>3 Years</span>
+                <span>4 Years</span>
+                <span>5 Years</span>
+              </div>
+            </div>
+
+            <!-- Risk Strategies -->
+            <div>
+              <label class="text-sm font-semibold text-slate-300 block mb-3">Risk & Yield Strategy</label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                
+                <button type="button" onclick="selectStrategy(8.5, this)" class="calc-strategy-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all">
+                  <div class="text-xs font-semibold text-slate-300 mb-0.5">Conservative</div>
+                  <div class="text-lg font-bold font-mono text-cyan-400">8.5% APY</div>
+                  <div class="text-[10px] text-slate-500 mt-1">Stables & Bitcoin Only</div>
+                </button>
+
+                <button type="button" onclick="selectStrategy(14.2, this)" class="calc-strategy-btn text-left p-3.5 rounded-xl border border-cyan-500/50 bg-cyan-950/30 ring-1 ring-cyan-500/30 transition-all">
+                  <div class="text-xs font-semibold text-slate-200 mb-0.5">Balanced Growth</div>
+                  <div class="text-lg font-bold font-mono text-emerald-400">14.2% APY</div>
+                  <div class="text-[10px] text-slate-400 mt-1">ETH Staking + Bluechips</div>
+                </button>
+
+                <button type="button" onclick="selectStrategy(24.8, this)" class="calc-strategy-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all">
+                  <div class="text-xs font-semibold text-slate-300 mb-0.5">Aggressive Alpha</div>
+                  <div class="text-lg font-bold font-mono text-purple-400">24.8% APY</div>
+                  <div class="text-[10px] text-slate-500 mt-1">DeFi Momentum & Layer-1s</div>
+                </button>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-500 flex items-center gap-2">
+            <i class="fa-solid fa-circle-info text-cyan-400"></i>
+            Projections model continuous compounding based on historical on-chain yield metrics.
+          </div>
+        </div>
+
+        <!-- Outcome Column -->
+        <div class="lg:col-span-5 glass-surface rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-cyan-500/30 relative overflow-hidden bg-gradient-to-b from-[#101c36] to-[#0a1122]">
+          
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Projected Valuation</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-medium">Monthly Compound</span>
+            </div>
+
+            <!-- Total Valuation Big Display -->
+            <div class="my-6">
+              <p class="text-xs text-slate-400 font-medium uppercase tracking-wide">Projected Total Return</p>
+              <div id="calcProjectedTotal" class="text-4xl sm:text-5xl font-extrabold font-mono text-white tracking-tight mt-1 text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-emerald-300">
+                $22,810.50
+              </div>
+            </div>
+
+            <!-- Breakdown list -->
+            <div class="space-y-4 py-4 bg-slate-950/50 rounded-xl p-4 border border-slate-800/80">
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-slate-400">Initial Principal:</span>
+                <span id="calcPrincipal" class="font-mono text-slate-200 font-semibold">$15,000.00</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-slate-400">Net Estimated Profit:</span>
+                <span id="calcProfit" class="font-mono text-emerald-400 font-semibold">+$7,810.50</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-slate-400">Effective ROI:</span>
+                <span id="calcROI" class="font-mono text-cyan-400 font-semibold">+52.1%</span>
+              </div>
+            </div>
+
+            <!-- Visual Progress Ratio -->
+            <div class="mt-6">
+              <div class="flex justify-between text-xs text-slate-400 mb-1.5">
+                <span>Principal vs Yield</span>
+                <span id="calcRatioLabel" class="font-mono text-cyan-300">65% / 35%</span>
+              </div>
+              <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden flex">
+                <div id="calcBarPrincipal" class="h-full bg-slate-600 transition-all duration-300" style="width: 65%;"></div>
+                <div id="calcBarYield" class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-300" style="width: 35%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-8">
+            <button onclick="openAuthModal('signup', 'Calculator Strategy')" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-extrabold text-sm shadow-xl shadow-cyan-500/20 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-lock-open"></i> Lock In This Allocation Plan
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="security" class="py-16 md:py-24 bg-[#0a1122]/70 border-t border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest font-mono">Institutional Custody</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">Multi-Layered Security Matrix</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">
+          Your digital assets are safeguarded with multi-party computation, regulated custodian vaulting, and multi-million dollar crime policies.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl mb-5">
+              <i class="fa-solid fa-vault"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">98% Cold Storage</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+              Reserves are isolated in physically air-gapped deep cold storage vaults with zero continuous internet exposure via Fireblocks MPC.
+            </p>
+          </div>
+          <div class="pt-5 mt-5 border-t border-slate-800 text-[11px] font-mono text-cyan-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> SOC 2 Type II Certified
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl mb-5">
+              <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">$350M Crime Coverage</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+              Institutional assets under management are backed by leading Lloyd's syndicates defending against technical breach and key loss.
+            </p>
+          </div>
+          <div class="pt-5 mt-5 border-t border-slate-800 text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> Syndicate Underwritten
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl mb-5">
+              <i class="fa-solid fa-key"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Multi-Party Computation</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+              Private keys never exist in an assembled state anywhere. Multi-sig quorums require institutional consensus for transfers.
+            </p>
+          </div>
+          <div class="pt-5 mt-5 border-t border-slate-800 text-[11px] font-mono text-purple-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> Threshold MPC Protocol
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 text-xl mb-5">
+              <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">FinCEN MSB Licensed</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+              Operated in compliance with FinCEN Money Services Business guidelines and stringent anti-money laundering frameworks.
+            </p>
+          </div>
+          <div class="pt-5 mt-5 border-t border-slate-800 text-[11px] font-mono text-teal-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> FinCEN Reg #3100021
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="strategies" class="py-16 md:py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest font-mono">Curated Asset Baskets</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">One-Click Thematic Portfolios</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">
+          Choose a pre-packaged portfolio curated by quantitative analysts and rebalanced continuously.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Basket 1 -->
+        <div class="glass-surface rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl">
+                <i class="fa-solid fa-landmark text-xl"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-cyan-950 text-cyan-300 border border-cyan-800">
+                Low Volatility
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-1">Bluechip Sovereign</h3>
+            <p class="text-xs text-slate-400 mb-4">60% BTC, 35% ETH, 5% USD Stables. The baseline foundation for conservative crypto allocation.</p>
+            
+            <div class="space-y-2 py-3 border-y border-slate-800 mb-5 text-xs">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Target APY:</span>
+                <span class="font-mono text-cyan-400 font-semibold">9.8%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Rebalance:</span>
+                <span class="font-mono text-slate-200">Bi-Weekly Auto</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Minimum:</span>
+                <span class="font-mono text-slate-200">$100</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="openAuthModal('signup', 'Bluechip Sovereign')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-semibold text-xs transition-colors">
+            Start With Bluechip
+          </button>
+        </div>
+
+        <!-- Basket 2 -->
+        <div class="glass-surface rounded-2xl p-6 border-2 border-cyan-500/50 relative shadow-2xl shadow-cyan-500/10 flex flex-col justify-between">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 text-[10px] font-extrabold uppercase px-3 py-0.5 rounded-full tracking-wider">
+            Most Popular
+          </div>
+          <div>
+            <div class="flex justify-between items-start mb-4 mt-1">
+              <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl">
+                <i class="fa-solid fa-chart-line text-xl"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-emerald-950 text-emerald-300 border border-emerald-800">
+                Medium Risk
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-1">Layer-1 & DeFi Yield</h3>
+            <p class="text-xs text-slate-400 mb-4">ETH, SOL, AVAX, NEAR combined with liquid staking protocols for compounded gas rewards.</p>
+            
+            <div class="space-y-2 py-3 border-y border-slate-800 mb-5 text-xs">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Target APY:</span>
+                <span class="font-mono text-emerald-400 font-semibold">18.4%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Rebalance:</span>
+                <span class="font-mono text-slate-200">Continuous AI</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Minimum:</span>
+                <span class="font-mono text-slate-200">$250</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="openAuthModal('signup', 'Layer-1 & DeFi Yield')" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-xs hover:brightness-110 transition-all">
+            Allocate to Staking Basket
+          </button>
+        </div>
+
+        <!-- Basket 3 -->
+        <div class="glass-surface rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <div class="p-3 bg-purple-500/10 text-purple-400 rounded-xl">
+                <i class="fa-solid fa-microchip text-xl"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-purple-950 text-purple-300 border border-purple-800">
+                High Alpha
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-1">AI & DePIN Frontier</h3>
+            <p class="text-xs text-slate-400 mb-4">Decentralized GPU compute, artificial intelligence protocols, and physical infrastructure tokens.</p>
+            
+            <div class="space-y-2 py-3 border-y border-slate-800 mb-5 text-xs">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Target APY:</span>
+                <span class="font-mono text-purple-400 font-semibold">28.9%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Rebalance:</span>
+                <span class="font-mono text-slate-200">Daily Algorithmic</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Minimum:</span>
+                <span class="font-mono text-slate-200">$500</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="openAuthModal('signup', 'AI & DePIN Frontier')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 font-semibold text-xs transition-colors">
+            Start With Frontier
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="faq" class="py-16 md:py-24 bg-[#0a1122]/60 border-t border-slate-800/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest font-mono">Transparency First</span>
+        <h2 class="text-3xl font-extrabold text-white tracking-tight mt-1">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="space-y-4" id="faqAccordion">
+        
+        <div class="glass-surface rounded-xl border border-slate-800 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-semibold text-white text-sm sm:text-base hover:text-cyan-300">
+            <span>How does the password visibility peek work securely on this form?</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-xs sm:text-sm text-slate-400 border-t border-slate-800/40 pt-3">
+            Both the password and confirmation fields feature individual one-click toggle switches (the eye icon). Clicking it temporarily switches the input type between "password" and "text" locally in your browser memory without ever transmitting plain text over the network.
+          </div>
+        </div>
+
+        <div class="glass-surface rounded-xl border border-slate-800 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-semibold text-white text-sm sm:text-base hover:text-cyan-300">
+            <span>Are my funds locked into fixed terms?</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-xs sm:text-sm text-slate-400 border-t border-slate-800/40 pt-3">
+            No. NexusVault features liquid allocation by default. You can initiate partial or full withdrawals back to your linked bank account (via ACH/SEPA) or external cryptocurrency wallet at any time without early exit penalties.
+          </div>
+        </div>
+
+        <div class="glass-surface rounded-xl border border-slate-800 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-semibold text-white text-sm sm:text-base hover:text-cyan-300">
+            <span>How is the custody insurance policy structured?</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-xs sm:text-sm text-slate-400 border-t border-slate-800/40 pt-3">
+            Our qualified custodian partners (including Fireblocks and BitGo) maintain comprehensive crime insurance policies underwritten by prominent syndicate insurers covering theft, physical vault destruction, and internal collusion up to $350 million.
+          </div>
+        </div>
+
+        <div class="glass-surface rounded-xl border border-slate-800 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-5 flex items-center justify-between font-semibold text-white text-sm sm:text-base hover:text-cyan-300">
+            <span>What are the deposit and platform fees?</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-xs sm:text-sm text-slate-400 border-t border-slate-800/40 pt-3">
+            There are zero deposit fees for ACH, wire, or cryptocurrency transfers. NexusVault charges a simple 0.35% annualized management fee on active assets under management, with zero hidden execution spreads.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-800/80 bg-[#050810] pt-14 pb-10 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 pb-12 border-b border-slate-800/60">
+        
+        <div class="col-span-2">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-400 to-emerald-400 p-[1.5px]">
+              <div class="w-full h-full bg-[#070b14] rounded-[6px] flex items-center justify-center">
+                <i class="fa-solid fa-cube text-cyan-400 text-xs"></i>
+              </div>
+            </div>
+            <span class="text-base font-bold text-white">NexusVault</span>
+          </div>
+          <p class="text-xs text-slate-400 max-w-sm mb-4 leading-relaxed">
+            Next-generation crypto asset management protocol combining algorithmic diversification, automated rebalancing, and verified cold custody.
+          </p>
+          <div class="flex items-center gap-3 text-slate-300">
+            <a href="#" aria-label="Twitter" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 flex items-center justify-center transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Discord" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 flex items-center justify-center transition-colors"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" aria-label="Telegram" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 flex items-center justify-center transition-colors"><i class="fa-brands fa-telegram"></i></a>
+            <a href="#" aria-label="GitHub" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 flex items-center justify-center transition-colors"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-slate-200 font-semibold mb-3 uppercase tracking-wider text-[11px] font-mono">Solutions</h4>
+          <ul class="space-y-2">
+            <li><a href="#strategies" class="hover:text-cyan-400 transition-colors">Thematic Baskets</a></li>
+            <li><a href="#strategies" class="hover:text-cyan-400 transition-colors">Liquid Staking</a></li>
+            <li><a href="#calculator" class="hover:text-cyan-400 transition-colors">Yield Calculator</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition-colors">Institutional API</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-200 font-semibold mb-3 uppercase tracking-wider text-[11px] font-mono">Security</h4>
+          <ul class="space-y-2">
+            <li><a href="#security" class="hover:text-cyan-400 transition-colors">Proof of Reserves</a></li>
+            <li><a href="#security" class="hover:text-cyan-400 transition-colors">Cold Vault Audits</a></li>
+            <li><a href="#security" class="hover:text-cyan-400 transition-colors">Insurance Coverage</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition-colors">Bug Bounty</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-200 font-semibold mb-3 uppercase tracking-wider text-[11px] font-mono">Compliance</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-cyan-400 transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition-colors">AML / KYC Policy</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition-colors">FinCEN Registry</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Regulatory Disclaimers -->
+      <div class="pt-8 text-[11px] text-slate-500 leading-relaxed space-y-2">
+        <p>
+          <strong class="text-slate-400">Risk Disclosure:</strong> Digital currency and decentralized staking investments involve market risk and volatility. Past performance does not guarantee future results. Yield simulations and APY quotes reflect modeled projections subject to network validation conditions. NexusVault does not provide personalized tax or legal advice.
+        </p>
+        <p>
+          NexusVault Digital Infrastructure operates under FinCEN registration #3100021. Custody insurance is held via qualified third-party syndicate underwriters.
+        </p>
+        <div class="pt-4 flex flex-col sm:flex-row justify-between items-center text-slate-600">
+          <p>&copy; 2026 NexusVault Technologies Inc. All rights reserved.</p>
+          <p class="font-mono text-[10px] mt-2 sm:mt-0">System Status: <span class="text-emerald-400">All Nodes Operational (12ms)</span></p>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <div id="authModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+    <div class="glass-surface w-full max-w-lg rounded-2xl p-6 sm:p-8 border border-cyan-500/40 shadow-2xl relative my-8">
+      
+      <!-- Close Button -->
+      <button onclick="closeAuthModal()" aria-label="Close Modal" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Modal Tabs: Sign Up vs Sign In -->
+      <div class="flex items-center gap-3 pb-5 mb-5 border-b border-slate-800">
+        <button id="tabSignupBtn" onclick="switchAuthTab('signup')" class="text-sm font-bold pb-2 text-cyan-400 border-b-2 border-cyan-400 transition-all">
+          Create Account
+        </button>
+        <button id="tabSigninBtn" onclick="switchAuthTab('signin')" class="text-sm font-semibold pb-2 text-slate-400 hover:text-white border-b-2 border-transparent transition-all">
+          Sign In
+        </button>
+      </div>
+
+      <!-- Sign Up Form View -->
+      <form id="signupForm" onsubmit="handleSignupSubmit(event)" class="space-y-4">
+        
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Full Legal Name</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i class="fa-solid fa-user text-xs"></i>
+            </span>
+            <input 
+              type="text" 
+              id="signupName" 
+              required 
+              placeholder="Alex Henderson" 
+              class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm font-medium transition-colors"
+            >
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i class="fa-solid fa-envelope text-xs"></i>
+            </span>
+            <input 
+              type="email" 
+              id="signupEmail" 
+              required 
+              placeholder="alex@example.com" 
+              class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm font-medium transition-colors"
+            >
+          </div>
+        </div>
+
+        <!-- Password Field with View/Peek Toggle -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-semibold text-slate-300">Master Password</label>
+            <span class="text-[10px] text-slate-400 font-mono">Min 8 chars, 1 uppercase, 1 special</span>
+          </div>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i class="fa-solid fa-lock text-xs"></i>
+            </span>
+            <input 
+              type="password" 
+              id="signupPassword" 
+              required 
+              oninput="handlePasswordStrengthCheck(this.value)" 
+              placeholder="Create strong password" 
+              class="w-full pl-9 pr-11 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm font-medium transition-colors"
+            >
+            <!-- Show/Hide Peek Button -->
+            <button 
+              type="button" 
+              onclick="togglePasswordVisibility('signupPassword', 'signupPassToggleIcon')" 
+              class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-cyan-400 focus:outline-none transition-colors"
+              title="Click to view/hide password">
+              <i id="signupPassToggleIcon" class="fa-solid fa-eye-slash text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Password Strength Indicator Bar -->
+          <div class="mt-2">
+            <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-1">
+              <span>Security Strength:</span>
+              <span id="strengthText" class="text-slate-400 font-bold">Too Weak</span>
+            </div>
+            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden flex gap-1">
+              <div id="bar1" class="h-full w-1/4 bg-slate-700 transition-colors"></div>
+              <div id="bar2" class="h-full w-1/4 bg-slate-700 transition-colors"></div>
+              <div id="bar3" class="h-full w-1/4 bg-slate-700 transition-colors"></div>
+              <div id="bar4" class="h-full w-1/4 bg-slate-700 transition-colors"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirm Password Field with View/Peek Toggle -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Confirm Master Password</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i class="fa-solid fa-shield text-xs"></i>
+            </span>
+            <input 
+              type="password" 
+              id="signupConfirmPassword" 
+              required 
+              oninput="checkPasswordMatch()" 
+              placeholder="Repeat master password" 
+              class="w-full pl-9 pr-11 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm font-medium transition-colors"
+            >
+            <!-- Show/Hide Peek Button -->
+            <button 
+              type="button" 
+              onclick="togglePasswordVisibility('signupConfirmPassword', 'signupConfirmToggleIcon')" 
+              class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-cyan-400 focus:outline-none transition-colors"
+              title="Click to view/hide password">
+              <i id="signupConfirmToggleIcon" class="fa-solid fa-eye-slash text-sm"></i>
+            </button>
+          </div>
+          <span id="matchError" class="hidden text-[11px] text-rose-400 mt-1 font-mono flex items-center gap-1">
+            <i class="fa-solid fa-triangle-exclamation"></i> Passwords do not match yet.
+          </span>
+        </div>
+
+        <!-- Terms and Conditions Checkbox -->
+        <div class="flex items-start gap-2.5 pt-1">
+          <input 
+            type="checkbox" 
+            id="termsCheckbox" 
+            required 
+            class="mt-0.5 rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-cyan-500 cursor-pointer"
+          >
+          <label for="termsCheckbox" class="text-xs text-slate-400 cursor-pointer">
+            I agree to the <a href="#" class="text-cyan-400 hover:underline">Terms of Service</a>, <a href="#" class="text-cyan-400 hover:underline">Privacy Policy</a>, and acknowledge cryptocurrency investment risks.
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          id="signupSubmitBtn"
+          class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-sm shadow-xl shadow-cyan-500/20 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+          <span>Initialize Vault & Generate MPC Keys</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </form>
+
+      <!-- Sign In Form View -->
+      <form id="signinForm" onsubmit="handleSigninSubmit(event)" class="hidden space-y-4">
+        
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Registered Email</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i class="fa-solid fa-envelope text-xs"></i>
+            </span>
+            <input 
+              type="email" 
+              required 
+              placeholder="alex@example.com" 
+              class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm font-medium transition-colors"
+            >
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-semibold text-slate-300">Password</label>
+            <a href="#" class="text-[11px] text-cyan-400 hover:underline">Forgot password?</a>
+          </div>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i class="fa-solid fa-lock text-xs"></i>
+            </span>
+            <input 
+              type="password" 
+              id="signinPassword" 
+              required 
+              placeholder="Enter your password" 
+              class="w-full pl-9 pr-11 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-sm font-medium transition-colors"
+            >
+            <button 
+              type="button" 
+              onclick="togglePasswordVisibility('signinPassword', 'signinPassToggleIcon')" 
+              class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-cyan-400 focus:outline-none transition-colors"
+              title="Click to view/hide password">
+              <i id="signinPassToggleIcon" class="fa-solid fa-eye-slash text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <button 
+          type="submit" 
+          id="signinSubmitBtn"
+          class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-sm shadow-xl shadow-cyan-500/20 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+          <span>Authenticate & Access Vault</span>
+          <i class="fa-solid fa-key"></i>
+        </button>
+
+      </form>
+
+      <!-- Simulated Progress Banner -->
+      <div id="formStatusBanner" class="hidden mt-4 p-3 rounded-xl bg-slate-900/90 border text-xs text-center font-medium"></div>
+
+    </div>
+  </div>
+
+  <div id="thankYouModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg">
+    <div class="glass-surface w-full max-w-lg rounded-3xl p-6 sm:p-9 border border-emerald-500/40 shadow-2xl relative text-center">
+      
+      <!-- Close icon -->
+      <button onclick="closeThankYouModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Success Badge with Glowing Ring -->
+      <div class="relative w-20 h-20 mx-auto mb-5 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping"></div>
+        <div class="relative w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-400 to-cyan-400 p-[2px] shadow-lg shadow-emerald-500/30">
+          <div class="w-full h-full bg-[#070b14] rounded-[14px] flex items-center justify-center text-emerald-400 text-2xl">
+            <i class="fa-solid fa-check"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Welcome Heading -->
+      <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">Registration Verified</span>
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Welcome to NexusVault, <span id="thankYouUserName" class="text-cyan-400">Investor</span>!</h3>
+      <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-md mx-auto">
+        Your institutional custody account and cold MPC address have been initialized with 256-bit encryption.
+      </p>
+
+      <!-- Simulated Wallet Credentials Box -->
+      <div class="my-6 bg-slate-950/80 rounded-2xl p-4 border border-slate-800 text-left space-y-3">
+        <div>
+          <div class="text-[10px] text-slate-400 uppercase font-mono tracking-wider">Assigned Cold Vault ID</div>
+          <div class="flex items-center justify-between mt-0.5">
+            <span id="displayVaultId" class="font-mono text-cyan-300 text-xs sm:text-sm font-semibold truncate pr-2">0x742d...44e397</span>
+            <button onclick="copyToClipboard('displayVaultId', this)" class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-800 flex items-center gap-1 font-mono">
+              <i class="fa-regular fa-copy"></i> Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
+          <span class="text-slate-400">Account Status:</span>
+          <span class="text-emerald-400 font-semibold font-mono flex items-center gap-1">
+            <i class="fa-solid fa-shield-halved text-[10px]"></i> Fully Insured
+          </span>
+        </div>
+      </div>
+
+      <!-- Recommended Next Onboarding Steps -->
+      <div class="text-left space-y-2.5 mb-6">
+        <div class="text-xs font-semibold text-slate-300">Recommended Next Steps:</div>
+        
+        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">
+            1
+          </div>
+          <span class="text-xs text-slate-300">Verify your confirmation email sent to <strong id="thankYouUserEmail" class="text-white">your email</strong>.</span>
+        </div>
+
+        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">
+            2
+          </div>
+          <span class="text-xs text-slate-300">Activate Authenticator App (Google Auth or YubiKey 2FA).</span>
+        </div>
+
+        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs">
+            3
+          </div>
+          <span class="text-xs text-slate-300">Fund initial deposit to claim your <strong>$100 Staking Match Bonus</strong>.</span>
+        </div>
+      </div>
+
+      <!-- Main Action CTA -->
+      <button 
+        onclick="enterDashboardMock()" 
+        class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/20 hover:brightness-110 active:scale-95 transition-all">
+        Access Live Vault Dashboard <i class="fa-solid fa-arrow-right ml-1"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================
+       1. Real-Time Price Ticker & Market Table Simulation
+       ========================================================== */
+    const cryptoAssets = [
+      { id: 'btc', name: 'Bitcoin', symbol: 'BTC', price: 68420.50, change: 3.42, volume: '$38.2B', apy: '7.8%', icon: 'fa-brands fa-bitcoin text-amber-500', category: 'bluechip' },
+      { id: 'eth', name: 'Ethereum', symbol: 'ETH', price: 3584.20, change: 4.18, volume: '$21.4B', apy: '11.5%', icon: 'fa-brands fa-ethereum text-cyan-400', category: 'bluechip' },
+      { id: 'sol', name: 'Solana', symbol: 'SOL', price: 168.90, change: 7.85, volume: '$7.8B', apy: '14.2%', icon: 'fa-solid fa-sun text-purple-400', category: 'yield' },
+      { id: 'avax', name: 'Avalanche', symbol: 'AVAX', price: 34.20, change: -1.24, volume: '$1.2B', apy: '16.4%', icon: 'fa-solid fa-mountain text-red-500', category: 'yield' },
+      { id: 'bnb', name: 'BNB Chain', symbol: 'BNB', price: 592.10, change: 1.62, volume: '$2.9B', apy: '9.1%', icon: 'fa-solid fa-cubes text-yellow-400', category: 'bluechip' },
+      { id: 'near', name: 'NEAR Protocol', symbol: 'NEAR', price: 6.45, change: 8.90, volume: '$940M', apy: '19.8%', icon: 'fa-solid fa-wave-square text-emerald-400', category: 'yield' }
+    ];
+
+    let currentMarketFilter = 'all';
+
+    function initTicker() {
+      const track = document.getElementById('tickerStrip');
+      if (!track) return;
+      const combined = [...cryptoAssets, ...cryptoAssets];
+      track.innerHTML = combined.map(c => {
+        const isPositive = c.change >= 0;
+        return `
+          <div class="inline-flex items-center gap-2.5 mx-4 font-mono text-xs cursor-default">
+            <span class="text-white font-bold">${c.symbol}</span>
+            <span class="text-slate-300" id="ticker-price-${c.id}">$${c.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            <span class="px-1.5 py-0.5 rounded text-[11px] font-semibold ${isPositive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">
+              ${isPositive ? '+' : ''}${c.change}%
+            </span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMarketTable() {
+      const tbody = document.getElementById('marketTableBody');
+      if (!tbody) return;
+
+      const filtered = cryptoAssets.filter(item => {
+        if (currentMarketFilter === 'all') return true;
+        return item.category === currentMarketFilter;
+      });
+
+      tbody.innerHTML = filtered.map(coin => {
+        const isPos = coin.change >= 0;
+        return `
+          <tr class="hover:bg-slate-800/40 transition-colors">
+            <td class="py-4 px-6">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-slate-800/80 flex items-center justify-center text-base">
+                  <i class="${coin.icon}"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-white">${coin.name}</div>
+                  <div class="text-xs font-mono text-slate-400">${coin.symbol}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-6 font-mono font-semibold text-white" id="table-price-${coin.id}">
+              $${coin.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            </td>
+            <td class="py-4 px-6">
+              <span class="inline-flex items-center gap-1 font-mono text-xs font-semibold px-2 py-0.5 rounded-full ${isPos ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}">
+                <i class="fa-solid ${isPos ? 'fa-arrow-up' : 'fa-arrow-down'} text-[9px]"></i>
+                ${isPos ? '+' : ''}${coin.change}%
+              </span>
+            </td>
+            <td class="py-4 px-6 font-mono text-slate-300 hidden sm:table-cell">
+              ${coin.volume}
+            </td>
+            <td class="py-4 px-6 font-mono text-emerald-400 font-semibold hidden md:table-cell">
+              ${coin.apy}
+            </td>
+            <td class="py-4 px-6 text-right">
+              <button onclick="openAuthModal('signup', 'Allocate ${coin.name}')" class="px-3.5 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition-all">
+                Stake Asset
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterMarkets(category, btn) {
+      currentMarketFilter = category;
+      document.querySelectorAll('.market-btn').forEach(b => {
+        b.className = 'market-btn px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white';
+      });
+      btn.className = 'market-btn px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40';
+      renderMarketTable();
+    }
+
+    function runPriceFluctuations() {
+      setInterval(() => {
+        const rand = Math.floor(Math.random() * cryptoAssets.length);
+        const item = cryptoAssets[rand];
+        const drift = (Math.random() * 0.006 - 0.0028); // gentle shift
+        item.price = Math.max(1, item.price * (1 + drift));
+
+        const tablePrice = document.getElementById(`table-price-${item.id}`);
+        if (tablePrice) {
+          tablePrice.textContent = `$${item.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+          tablePrice.classList.add(drift >= 0 ? 'text-emerald-400' : 'text-rose-400');
+          setTimeout(() => {
+            tablePrice.classList.remove('text-emerald-400', 'text-rose-400');
+          }, 700);
+        }
+      }, 3200);
+    }
+
+    /* ==========================================================
+       2. Dynamic Compound Yield Calculator
+       ========================================================== */
+    let selectedAPY = 14.2;
+
+    function runCalculator() {
+      const depositInput = document.getElementById('depositRange');
+      const durationInput = document.getElementById('durationRange');
+      
+      const deposit = parseFloat(depositInput.value);
+      const years = parseInt(durationInput.value);
+
+      document.getElementById('depositLabel').textContent = `$${deposit.toLocaleString()}`;
+      document.getElementById('durationLabel').textContent = `${years} Year${years > 1 ? 's' : ''}`;
+
+      // Compound formula: A = P * (1 + r/12)^(12 * t)
+      const r = selectedAPY / 100;
+      const total = deposit * Math.pow((1 + (r / 12)), (12 * years));
+      const profit = total - deposit;
+      const roi = (profit / deposit) * 100;
+
+      document.getElementById('calcProjectedTotal').textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('calcPrincipal').textContent = `$${deposit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('calcProfit').textContent = `+$${profit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('calcROI').textContent = `+${roi.toFixed(1)}%`;
+
+      const pPercent = Math.min(100, Math.max(15, (deposit / total) * 100));
+      const yPercent = 100 - pPercent;
+
+      document.getElementById('calcBarPrincipal').style.width = `${pPercent}%`;
+      document.getElementById('calcBarYield').style.width = `${yPercent}%`;
+      document.getElementById('calcRatioLabel').textContent = `${Math.round(pPercent)}% / ${Math.round(yPercent)}%`;
+    }
+
+    function selectStrategy(apy, btn) {
+      selectedAPY = apy;
+      document.querySelectorAll('.calc-strategy-btn').forEach(b => {
+        b.className = 'calc-strategy-btn text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all';
+      });
+      btn.className = 'calc-strategy-btn text-left p-3.5 rounded-xl border border-cyan-500/50 bg-cyan-950/30 ring-1 ring-cyan-500/30 transition-all';
+      runCalculator();
+    }
+
+    /* ==========================================================
+       3. Interactive Hero Sparkline Canvas
+       ========================================================== */
+    function drawHeroSparkline() {
+      const canvas = document.getElementById('heroCanvasChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+      const w = rect.width;
+      const h = rect.height;
+
+      const pts = [
+        { x: 0, y: h * 0.8 },
+        { x: w * 0.15, y: h * 0.68 },
+        { x: w * 0.32, y: h * 0.74 },
+        { x: w * 0.48, y: h * 0.5 },
+        { x: w * 0.65, y: h * 0.44 },
+        { x: w * 0.82, y: h * 0.28 },
+        { x: w, y: h * 0.18 }
+      ];
+
+      // Fill
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, 'rgba(6, 182, 212, 0.35)');
+      grad.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
+
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length; i++) {
+        const xc = (pts[i].x + pts[i - 1].x) / 2;
+        const yc = (pts[i].y + pts[i - 1].y) / 2;
+        ctx.quadraticCurveTo(pts[i - 1].x, pts[i - 1].y, xc, yc);
+      }
+      ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Line
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length; i++) {
+        const xc = (pts[i].x + pts[i - 1].x) / 2;
+        const yc = (pts[i].y + pts[i - 1].y) / 2;
+        ctx.quadraticCurveTo(pts[i - 1].x, pts[i - 1].y, xc, yc);
+      }
+      ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+      ctx.strokeStyle = '#06b6d4';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Dot
+      const last = pts[pts.length - 1];
+      ctx.beginPath();
+      ctx.arc(last.x - 2, last.y, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = '#10b981';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    function triggerQuickRebalance(btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-[10px]"></i> Optimizing...`;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = `<i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Rebalanced`;
+        drawHeroSparkline();
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.disabled = false;
+        }, 1800);
+      }, 1000);
+    }
+
+    /* ==========================================================
+       4. Password View / Peek Toggle & Real-time Strength Meter
+       ========================================================== */
+    function togglePasswordVisibility(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (!input || !icon) return;
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+        icon.classList.add('text-cyan-400');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+        icon.classList.remove('text-cyan-400');
+      }
+    }
+
+    function handlePasswordStrengthCheck(password) {
+      let score = 0;
+      if (password.length >= 8) score++;
+      if (/[A-Z]/.test(password)) score++;
+      if (/[0-9]/.test(password)) score++;
+      if (/[^A-Za-z0-9]/.test(password)) score++;
+
+      const text = document.getElementById('strengthText');
+      const b1 = document.getElementById('bar1');
+      const b2 = document.getElementById('bar2');
+      const b3 = document.getElementById('bar3');
+      const b4 = document.getElementById('bar4');
+
+      // Reset
+      [b1, b2, b3, b4].forEach(b => b.className = 'h-full w-1/4 bg-slate-700 transition-colors');
+
+      if (password.length === 0) {
+        text.textContent = 'Too Weak';
+        text.className = 'text-slate-400 font-bold';
+        return;
+      }
+
+      if (score === 1) {
+        text.textContent = 'Weak';
+        text.className = 'text-rose-400 font-bold';
+        b1.className = 'h-full w-1/4 bg-rose-500 transition-colors';
+      } else if (score === 2) {
+        text.textContent = 'Fair';
+        text.className = 'text-amber-400 font-bold';
+        b1.className = 'h-full w-1/4 bg-amber-400 transition-colors';
+        b2.className = 'h-full w-1/4 bg-amber-400 transition-colors';
+      } else if (score === 3) {
+        text.textContent = 'Good';
+        text.className = 'text-cyan-400 font-bold';
+        b1.className = 'h-full w-1/4 bg-cyan-400 transition-colors';
+        b2.className = 'h-full w-1/4 bg-cyan-400 transition-colors';
+        b3.className = 'h-full w-1/4 bg-cyan-400 transition-colors';
+      } else if (score >= 4) {
+        text.textContent = 'Institutional (Strong)';
+        text.className = 'text-emerald-400 font-bold';
+        b1.className = 'h-full w-1/4 bg-emerald-400 transition-colors';
+        b2.className = 'h-full w-1/4 bg-emerald-400 transition-colors';
+        b3.className = 'h-full w-1/4 bg-emerald-400 transition-colors';
+        b4.className = 'h-full w-1/4 bg-emerald-400 transition-colors';
+      }
+    }
+
+    function checkPasswordMatch() {
+      const p1 = document.getElementById('signupPassword').value;
+      const p2 = document.getElementById('signupConfirmPassword').value;
+      const matchError = document.getElementById('matchError');
+      if (p2.length > 0 && p1 !== p2) {
+        matchError.classList.remove('hidden');
+        return false;
+      } else {
+        matchError.classList.add('hidden');
+        return true;
+      }
+    }
+
+    /* ==========================================================
+       5. Form Submissions & Post-Signup Thank You Modal
+       ========================================================== */
+    function switchAuthTab(type) {
+      const signupForm = document.getElementById('signupForm');
+      const signinForm = document.getElementById('signinForm');
+      const signupBtn = document.getElementById('tabSignupBtn');
+      const signinBtn = document.getElementById('tabSigninBtn');
+      const statusBanner = document.getElementById('formStatusBanner');
+      statusBanner.classList.add('hidden');
+
+      if (type === 'signup') {
+        signupForm.classList.remove('hidden');
+        signinForm.classList.add('hidden');
+        signupBtn.className = 'text-sm font-bold pb-2 text-cyan-400 border-b-2 border-cyan-400 transition-all';
+        signinBtn.className = 'text-sm font-semibold pb-2 text-slate-400 hover:text-white border-b-2 border-transparent transition-all';
+      } else {
+        signinForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+        signinBtn.className = 'text-sm font-bold pb-2 text-cyan-400 border-b-2 border-cyan-400 transition-all';
+        signupBtn.className = 'text-sm font-semibold pb-2 text-slate-400 hover:text-white border-b-2 border-transparent transition-all';
+      }
+    }
+
+    function handleSignupSubmit(e) {
+      e.preventDefault();
+      if (!checkPasswordMatch()) return;
+
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const submitBtn = document.getElementById('signupSubmitBtn');
+      const statusBanner = document.getElementById('formStatusBanner');
+
+      // Professional progress state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Initializing MPC Keys...`;
+      statusBanner.className = 'mt-4 p-3 rounded-xl bg-cyan-950/70 border border-cyan-800 text-cyan-300 text-xs text-center font-medium block';
+      statusBanner.innerHTML = `<i class="fa-solid fa-microchip"></i> Generating cryptographically segregated cold storage addresses...`;
+
+      setTimeout(() => {
+        // Reset submit button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Initialize Vault & Generate MPC Keys</span> <i class="fa-solid fa-arrow-right"></i>`;
+        statusBanner.classList.add('hidden');
+
+        // Close auth modal
+        closeAuthModal();
+
+        // Populate and open Thank You notification modal
+        const randomHex = '0x' + Array.from({length: 40}, () => Math.floor(Math.random()*16).toString(16)).join('');
+        document.getElementById('thankYouUserName').textContent = name || 'Investor';
+        document.getElementById('thankYouUserEmail').textContent = email;
+        document.getElementById('displayVaultId').textContent = randomHex.substring(0, 10) + '...' + randomHex.substring(34);
+
+        openThankYouModal();
+      }, 1600);
+    }
+
+    function handleSigninSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('signinSubmitBtn');
+      const statusBanner = document.getElementById('formStatusBanner');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Decrypting Session...`;
+      statusBanner.className = 'mt-4 p-3 rounded-xl bg-emerald-950/70 border border-emerald-800 text-emerald-300 text-xs text-center font-medium block';
+      statusBanner.innerHTML = `<i class="fa-solid fa-circle-check"></i> Session keys verified. Redirecting to institutional dashboard...`;
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Authenticate & Access Vault</span> <i class="fa-solid fa-key"></i>`;
+        closeAuthModal();
+        openThankYouModal();
+      }, 1200);
+    }
+
+    /* Modal controls */
+    function openAuthModal(mode = 'signup', source = '') {
+      switchAuthTab(mode);
+      document.getElementById('authModal').classList.remove('hidden');
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.add('hidden');
+    }
+
+    function openThankYouModal() {
+      document.getElementById('thankYouModal').classList.remove('hidden');
+    }
+
+    function closeThankYouModal() {
+      document.getElementById('thankYouModal').classList.add('hidden');
+    }
+
+    function enterDashboardMock() {
+      closeThankYouModal();
+      window.location.hash = '#markets';
+    }
+
+    function copyToClipboard(elementId, btn) {
+      const text = document.getElementById(elementId).innerText;
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+
+      const original = btn.innerHTML;
+      btn.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> Copied`;
+      setTimeout(() => {
+        btn.innerHTML = original;
+      }, 2000);
+    }
+
+    /* ==========================================================
+       6. Accordions & Mobile Navigation
+       ========================================================== */
+    function toggleFaq(btn) {
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector('i');
+      const isHidden = content.classList.contains('hidden');
+
+      document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+      document.querySelectorAll('#faqAccordion i').forEach(i => i.classList.remove('rotate-180'));
+
+      if (isHidden) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      }
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    /* ==========================================================
+       7. Window Events & Lifecycle
+       ========================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      initTicker();
+      renderMarketTable();
+      runCalculator();
+      drawHeroSparkline();
+      runPriceFluctuations();
+
+      // Sliders listeners
+      document.getElementById('depositRange').addEventListener('input', runCalculator);
+      document.getElementById('durationRange').addEventListener('input', runCalculator);
+
+      // Mobile button
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+
+      // Close modal on outside click
+      document.getElementById('authModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeAuthModal();
+      });
+      document.getElementById('thankYouModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeThankYouModal();
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      drawHeroSparkline();
+    });
+  </script>
+</body>
+</html>
